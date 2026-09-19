@@ -29,6 +29,18 @@ PowerShell terminalinizi açıp şu komutu yapıştırın:
 irm https://raw.githubusercontent.com/eimza-kep/gib-java-guvenlik-cozucu/main/Fix-JavaSecurity.ps1 | iex
 ```
 
+### Yöntem 3: Gelişmiş Komut Satırı Seçenekleri
+```powershell
+# Mevcut güvenilen siteleri listeleme
+.\Fix-JavaSecurity.ps1 -ListSites
+
+# Kendi özel portalınızı da listeye ekleme
+.\Fix-JavaSecurity.ps1 -CustomSites "https://otomasyon.kurumunuz.gov.tr"
+
+# Önceki güvenlik yapılandırmasını geri yükleme
+.\Fix-JavaSecurity.ps1 -RestoreBackup
+```
+
 ---
 
 ## 📋 Otomatik Eklenen Resmi Portallar
