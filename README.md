@@ -66,17 +66,11 @@ Eğer betik çalıştırmak istemiyorsanız aynı işlemi elle şu adımlarla ya
 
 Daha fazla e-dönüşüm, mali mühür ve e-imza hata çözümleri için resmi blogumuzu ziyaret edebilirsiniz:
 
-* 📄 [GİB e-Belge ve e-Defter Portalı Java Security Engeli Kesin Çözümü](https://eimza-kep.github.io/eimza-blog/posts/gib-java-security-engeli-cozumu.html)
-* 📄 [E-İmza Cihazları (USB Token) Nasıl Çalışır? Çipin İçindeki Teknik Dünya](https://eimza-kep.github.io/eimza-blog/posts/e-imza-cihazlari-nasil-calisir-teknik-rehber.html)
-* 📄 [Mali Mühür Süresi Bitti! Ne Yapılmalı? Kriz Yönetimi](https://eimza-kep.github.io/eimza-blog/posts/mali-muhur-suresi-doldu-ne-yapilmali.html)
-* 📄 [EKAP İhalesine e-İmza ile Teklif Verme ve İmza Hataları](https://eimza-kep.github.io/eimza-blog/posts/ekap-e-imza-ile-ihale-teklif-verme.html)
-
 ---
 
 ## ⚖️ Lisans
 
 Bu proje [MIT Lisansı](LICENSE) kapsamında tamamen ücretsiz ve açık kaynaklıdır. Ticari veya bireysel olarak dilediğiniz gibi kullanabilir ve dağıtabilirsiniz.
-
 
 ### 📚 İlgili Rehber ve Çözümler
 * 📄 [UYAP Doküman Editörü (.udf) Açılmıyor Sorununda Java Bellek Ayarı](https://uyap-teknik-destek.pages.dev/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html)
