@@ -1,6 +1,7 @@
 # GİB & UYAP Java Güvenlik Engeli Çözücü ☕🛡️
 
 [![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI Tests](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml/badge.svg)](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml)
 [![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg)](https://microsoft.com)
 [![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-blueviolet.svg)](https://github.com/PowerShell/PowerShell)
 [![Blog](https://img.shields.io/badge/Rehber-E--%C4%B0mza%20Blog-22c55e.svg)](https://eimza-kep.github.io/eimza-blog/)
