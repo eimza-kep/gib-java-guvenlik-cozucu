@@ -1,9 +1,8 @@
 import unittest
 import tempfile
-import os
 import shutil
 from pathlib import Path
-from java_security import apply_sites, load_existing_sites, OFFICIAL_SITES
+from java_security import apply_sites, load_existing_sites, remove_site, OFFICIAL_SITES
 
 class TestJavaSecurity(unittest.TestCase):
     def setUp(self):
@@ -29,13 +28,15 @@ class TestJavaSecurity(unittest.TestCase):
         self.assertEqual(added, 0)
         self.assertEqual(total, len(OFFICIAL_SITES))
 
-    def test_custom_site(self):
+    def test_custom_site_and_remove(self):
         custom = ["https://custom-portal.gov.tr"]
         added, total = apply_sites(target_dir=self.test_dir, custom_sites=custom)
         self.assertEqual(total, len(OFFICIAL_SITES) + 1)
-        exc_file = Path(self.test_dir) / "exception.sites"
-        loaded = load_existing_sites(exc_file)
-        self.assertIn("https://custom-portal.gov.tr", loaded)
+        
+        # Test removal
+        rem, remaining = remove_site(self.test_dir, "https://custom-portal.gov.tr")
+        self.assertEqual(rem, 1)
+        self.assertEqual(remaining, len(OFFICIAL_SITES))
 
 if __name__ == "__main__":
     unittest.main()

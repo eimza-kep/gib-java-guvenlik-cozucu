@@ -1,92 +1,71 @@
-# GİB & UYAP Java Güvenlik Engeli Çözücü ☕🛡️
+# GİB, UYAP & MERSİS Java Güvenlik Engeli Çözücü ☕🛡️
 
-[![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI Tests](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml/badge.svg)](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml)
-[![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg)](https://microsoft.com)
-[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B%20%7C%207%2B-blueviolet.svg)](https://github.com/PowerShell/PowerShell)
-[![Blog](https://img.shields.io/badge/Rehber-E--%C4%B0mza%20Blog-22c55e.svg)](https://eimza-kep.github.io/eimza-blog/)
+[![Python CI](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml/badge.svg)](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions)
+[![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform: Win | Mac | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com)
+[![Blog](https://img.shields.io/badge/Rehber-UYAP%20Teknik%20Destek-red.svg)](https://uyap-teknik-destek.pages.dev/)
 
-Gelir İdaresi Başkanlığı (**GİB e-Arşiv, e-Defter, e-Beyanname**), **UYAP (Avukat/Vatandaş/Bilirkişi)**, **MERSİS**, **EKAP** ve **SGK Medula** portallarında e-imza ile giriş yaparken veya belge imzalarken karşılaşılan meşhur:
-
-> **"Your security settings have blocked an untrusted application from running"**  
-> veya  
-> **"Application Blocked by Deployment Rule Set / Java Security"**
-
-hatasını **tek tıkla** kalıcı olarak çözen açık kaynaklı otomatik yapılandırma aracıdır.
+GİB (e-Beyanname, e-Fatura, e-Defter, İnteraktif Vergi Dairesi), UYAP (Avukat, Vatandaş, Kurum Portalları), DYS, SGK e-Bildirge ve MERSİS'e giriş yaparken karşılaşılan **"Application Blocked by Java Security"**, **"Your security settings have blocked an application from running with an out-of-date or expired version of Java"** ve sertifika engellerini otomatik olarak `exception.sites` dosyasına ekleyerek çözen açık kaynaklı yardımcı araçtır.
 
 ---
 
-## 🚀 Hızlı Kullanım (1 Tıkla Çözüm)
+## ✨ Öne Çıkan Özellikler
 
-### Yöntem 1: Dosyayı İndirip Çalıştırma
-1. Bu repoyu yeşil **`Code > Download ZIP`** butonundan indirin (veya [Releases](../../releases) kısmından alın).
-2. ZIP içerisindeki **`fix-java.bat`** dosyasına **çift tıklayın**.
-3. Betik gerekli tüm kamu portallarını Java Güvenilir Siteler listesine ekleyecek ve eski Java önbelleğini temizleyecektir.
-4. Tarayıcınızı veya UYAP Editörünü yeniden başlatın. Artık imzalama ekranınız sorunsuz açılacaktır!
+* ⚡ **Otomatik İstisna Yapılandırması:** 30'dan fazla resmi devlet portalını (`.gov.tr`) tek komutla güvenli siteler listesine ekler.
+* 🧹 **Java Önbellek Temizleme:** `--clear-cache` parametresi ile bozulmuş JAR dosyalarını ve eski sertifika önbelleklerini temizler.
+* 💾 **Güvenli Yedekleme:** Değişiklik öncesinde mevcut `exception.sites` dosyasının zaman damgalı yedeğini alır.
+* 🖥️ **Çoklu Platform:** Windows (`%APPDATA%\Sun\Java`), macOS (`~/Library/Application Support/Oracle/Java`) ve Linux (`~/.java`) dizinlerini otomatik tanır.
+* 📋 **Site Yönetimi:** `--list` ile kayıtlı siteleri listeleme, `--remove` ile site çıkarma olanağı.
 
-### Yöntem 2: PowerShell ile Doğrudan Çalıştırma
-PowerShell terminalinizi açıp şu komutu yapıştırın:
-```powershell
-irm https://raw.githubusercontent.com/eimza-kep/gib-java-guvenlik-cozucu/main/Fix-JavaSecurity.ps1 | iex
+---
+
+## 🚀 Hızlı Başlangıç
+
+### 1. Tek Komutla Tüm Resmi Portalları Ekleme
+```bash
+python java_security.py
 ```
 
-### Yöntem 3: Gelişmiş Komut Satırı Seçenekleri
+### 2. Java Önbelleğini Temizleme ve Listeleme
+```bash
+# Önbellek temizleme
+python java_security.py --clear-cache
+
+# Kayıtlı siteleri listeleme
+python java_security.py --list
+```
+
+### 3. Özel URL Ekleme veya Çıkarma
+```bash
+python java_security.py --add https://ozel-portal.gov.tr
+python java_security.py --remove https://eski-portal.gov.tr
+```
+
+### 4. Windows PowerShell İle Doğrudan Çalıştırma
 ```powershell
-# Mevcut güvenilen siteleri listeleme
-.\Fix-JavaSecurity.ps1 -ListSites
-
-# Kendi özel portalınızı da listeye ekleme
-.\Fix-JavaSecurity.ps1 -CustomSites "https://otomasyon.kurumunuz.gov.tr"
-
-# Önceki güvenlik yapılandırmasını geri yükleme
-.\Fix-JavaSecurity.ps1 -RestoreBackup
+powershell -ExecutionPolicy Bypass -File .\Fix-JavaSecurity.ps1
 ```
 
 ---
 
-## 📋 Otomatik Eklenen Resmi Portallar
+## 🔗 E-Dönüşüm Açık Kaynak Ekosistemi
 
-Betik çalıştırıldığında `%APPDATA%\Sun\Java\Deployment\security\exception.sites` dosyasına şu güvenilir kamu adreslerini ekler:
+Bu araç [eimza-kep](https://github.com/eimza-kep) organizasyonunun açık kaynak e-dönüşüm araçları ekosisteminin bir parçasıdır:
 
-| Kurum / Portal | Adres | Kullanım Amacı |
-| :--- | :--- | :--- |
-| **GİB e-Arşiv / e-Belge** | `https://earsivportal.gib.gov.tr` | Fatura kesme, e-Arşiv portal girişi |
-| **GİB e-Defter Portalı** | `https://edefter.gov.tr` | e-Defter beratı imzalama ve yükleme |
-| **GİB e-Beyanname** | `https://ebilgi.gib.gov.tr` | Beyanname gönderme ve sorgulama |
-| **İnteraktif Vergi Dairesi** | `https://dijital.gib.gov.tr` | Yeni Dijital Vergi Dairesi işlemleri |
-| **UYAP Avukat Portalı** | `https://avukat.uyap.gov.tr` | Dava açma, evrak gönderme, e-duruşma |
-| **UYAP Vatandaş Portalı** | `https://vatandas.uyap.gov.tr` | Dosya sorgulama ve e-imzalı evrak alma |
-| **MERSİS (Ticaret Bak.)** | `https://mersis.ticaret.gov.tr` | Şirket kuruluşu, ana sözleşme imzalama |
-| **EKAP (Kamu İhale)** | `https://ekap.kik.gov.tr` | Kamu ihale teklifi verme ve e-imza |
-| **SGK Medula** | `https://medula.sgk.gov.tr` | Hekim ve eczane e-reçete onaylama |
-| **Web Tapu** | `https://webtapu.tkgm.gov.tr` | Tapu devir, ipotek ve başvuru işlemleri |
-| **TÜBİTAK Kamu SM** | `https://kamusm.bilgem.tubitak.gov.tr` | Sertifika ve PIN kilit çözme işlemleri |
+* 🇹🇷 **[awesome-turkiye-e-donusum](https://github.com/eimza-kep/awesome-turkiye-e-donusum):** Türkiye E-Dönüşüm kütüphane, mevzuat ve araçlar listesi.
+* 🛠️ **[uyap-editor-hizli-onarim](https://github.com/eimza-kep/uyap-editor-hizli-onarim):** UYAP Doküman Editörü açılmama ve Java bellek aşımı onarım aracı.
+* 🩺 **[akilli-kart-surucu-teshis](https://github.com/eimza-kep/akilli-kart-surucu-teshis):** Akıllı kart okuyucu ve sürücü teşhis aracı.
+* 📊 **[gib-edefter-berat-xml-dogrulayici](https://github.com/eimza-kep/gib-edefter-berat-xml-dogrulayici):** GİB e-Defter ve berat doğrulama aracı.
 
 ---
 
-## 🛠️ Manuel Olarak Nasıl Yapılır?
-
-Eğer betik çalıştırmak istemiyorsanız aynı işlemi elle şu adımlarla yapabilirsiniz:
-1. Windows Başlat menüsüne **"Configure Java"** yazıp açın.
-2. Üst menüden **"Security" (Güvenlik)** sekmesine geçin.
-3. En alttaki **"Edit Site List..." (Site Listesini Düzenle)** butonuna tıklayın.
-4. **"Add" (Ekle)** diyerek yukarıdaki tablodaki adresleri tek tek yapıştırın.
-5. **OK** ve **Apply** butonlarına basarak kaydedin.
-
----
-
-## 📖 İlgili Kılavuzlar ve Teknik Yazılar
-
-Daha fazla e-dönüşüm, mali mühür ve e-imza hata çözümleri için resmi blogumuzu ziyaret edebilirsiniz:
+## 📚 İlgili Teknik Rehberler
+* 📄 [GİB ve UYAP Java Security Application Blocked Hatası Kesin Çözümü](https://uyap-teknik-destek.pages.dev/yazilar/java-security-exception-sites-ekleme-rehberi.html)
+* 📄 [UYAP Editör Donma ve Bellek Aşımı Sorunları Nasıl Düzeltilir?](https://uyap-teknik-destek.pages.dev/yazilar/uyap-editor-donma-ve-bellek-hatalari.html)
+* 📄 [e-Beyanname ve e-Bildirge Girişinde Karşılaşılan Java Sorunları](https://mali-muhur-merkezi.pages.dev/yazilar/e-beyanname-ve-ebildirge-java-hatalari.html)
 
 ---
 
 ## ⚖️ Lisans
 
-Bu proje [MIT Lisansı](LICENSE) kapsamında tamamen ücretsiz ve açık kaynaklıdır. Ticari veya bireysel olarak dilediğiniz gibi kullanabilir ve dağıtabilirsiniz.
-
-### 📚 İlgili Rehber ve Çözümler
-* 📄 [UYAP Doküman Editörü (.udf) Açılmıyor Sorununda Java Bellek Ayarı](https://uyap-teknik-destek.pages.dev/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html)
-* 📄 [e-Defter Berat Yükleme Gününde Mali Mühür Çalışmazsa Ne Yapılır?](https://mali-muhur-merkezi.pages.dev/yazilar/e-defter-berat-gunu-mali-muhur-calismazsa-cozum.html)
-* 📄 [GİB e-Arşiv Portaldan Fatura Kestikten Sonra İptal Süresi Kaç Gündür?](https://efatura-atolyesi.pages.dev/yazilar/gib-e-arsiv-fatura-iptal-suresi-kac-gun.html)
-* 📄 [Elektronik İmza Nedir? Islak İmza Yerine Hangi Alanlarda Kullanılır?](https://eimza-kep.github.io/eimza-blog/posts/elektronik-imza-nedir-hangi-alanlarda-kullanilir.html)
+Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
