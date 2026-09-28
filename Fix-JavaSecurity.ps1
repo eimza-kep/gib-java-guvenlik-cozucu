@@ -8,7 +8,7 @@
     (Güvenilen Siteler) listesine ekler ve önbelleği temizler.
 
 .NOTES
-    Yazar: E-İmza & Dijital Dönüşüm Portalı (https://uyap-teknik-destek.pages.dev/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html)
+    Yazar: E-İmza & Dijital Dönüşüm Portalı (https://uyapteknikdestek.site/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html)
     Lisans: MIT
 #>
 
@@ -143,5 +143,5 @@ if (-not $SkipCacheClear) {
 Write-Host "`n=================================================================" -ForegroundColor Cyan
 Write-Host " İŞLEM TAMAMLANDI!                                               " -ForegroundColor Green
 Write-Host " Tarayıcınızı veya UYAP Editörünü yeniden başlatabilirsiniz.     " -ForegroundColor White
-Write-Host " Daha fazla rehber için: https://uyap-teknik-destek.pages.dev/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html " -ForegroundColor Cyan
+Write-Host " Daha fazla rehber için: https://uyapteknikdestek.site/yazilar/uyap-dokuman-editoru-udf-acilmiyor-java-bellek-ayari.html " -ForegroundColor Cyan
 Write-Host "=================================================================`n" -ForegroundColor Cyan

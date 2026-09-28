@@ -7,7 +7,7 @@ Windows, macOS ve Linux üzerinde Java deployment "Application Blocked by Securi
 hatalarını çözmek için resmi GİB, UYAP, SGK, MERSİS ve Kamu SM portallarını güvenli
 istisna listesine (exception.sites) otomatik olarak ekler ve önbellek temizler.
 
-Yazar: E-İmza & Dijital Dönüşüm Portalı (https://uyap-teknik-destek.pages.dev/)
+Yazar: E-İmza & Dijital Dönüşüm Portalı (https://uyapteknikdestek.site/)
 Lisans: MIT
 """
 

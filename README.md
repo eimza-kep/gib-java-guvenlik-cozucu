@@ -3,7 +3,7 @@
 [![Python CI](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml/badge.svg)](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions)
 [![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Win | Mac | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com)
-[![Blog](https://img.shields.io/badge/Rehber-UYAP%20Teknik%20Destek-red.svg)](https://uyap-teknik-destek.pages.dev/)
+[![Blog](https://img.shields.io/badge/Rehber-UYAP%20Teknik%20Destek-red.svg)](https://uyapteknikdestek.site/)
 
 GİB (e-Beyanname, e-Fatura, e-Defter, İnteraktif Vergi Dairesi), UYAP (Avukat, Vatandaş, Kurum Portalları), DYS, SGK e-Bildirge ve MERSİS'e giriş yaparken karşılaşılan **"Application Blocked by Java Security"**, **"Your security settings have blocked an application from running with an out-of-date or expired version of Java"** ve sertifika engellerini otomatik olarak `exception.sites` dosyasına ekleyerek çözen açık kaynaklı yardımcı araçtır.
 
@@ -60,9 +60,9 @@ Bu araç [eimza-kep](https://github.com/eimza-kep) organizasyonunun açık kayna
 ---
 
 ## 📚 İlgili Teknik Rehberler
-* 📄 [GİB ve UYAP Java Security Application Blocked Hatası Kesin Çözümü](https://uyap-teknik-destek.pages.dev/yazilar/java-security-exception-sites-ekleme-rehberi.html)
-* 📄 [UYAP Editör Donma ve Bellek Aşımı Sorunları Nasıl Düzeltilir?](https://uyap-teknik-destek.pages.dev/yazilar/uyap-editor-donma-ve-bellek-hatalari.html)
-* 📄 [e-Beyanname ve e-Bildirge Girişinde Karşılaşılan Java Sorunları](https://mali-muhur-merkezi.pages.dev/yazilar/e-beyanname-ve-ebildirge-java-hatalari.html)
+* 📄 [GİB ve UYAP Java Security Application Blocked Hatası Kesin Çözümü](https://uyapteknikdestek.site/yazilar/java-security-exception-sites-ekleme-rehberi.html)
+* 📄 [UYAP Editör Donma ve Bellek Aşımı Sorunları Nasıl Düzeltilir?](https://uyapteknikdestek.site/yazilar/uyap-editor-donma-ve-bellek-hatalari.html)
+* 📄 [e-Beyanname ve e-Bildirge Girişinde Karşılaşılan Java Sorunları](https://malimuhur.site/yazilar/e-beyanname-ve-ebildirge-java-hatalari.html)
 
 ---
 
