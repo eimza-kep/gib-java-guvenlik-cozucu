@@ -41,10 +41,14 @@ OFFICIAL_SITES = [
     "https://icra.uyap.gov.tr",
     "https://portal.uyap.gov.tr",
     "https://dys.adalet.gov.tr",
+    "https://e-satis.uyap.gov.tr",
+    "https://uets.ptt.gov.tr",
+    "https://etebligat.ptt.gov.tr",
     # Gelir İdaresi Başkanlığı (GİB)
     "https://intvd.gib.gov.tr",
     "https://ivd.gib.gov.tr",
     "https://dijital.gib.gov.tr",
+    "https://etebligat.gib.gov.tr",
     "https://edefter.gov.tr",
     "https://efatura.gov.tr",
     "https://earsiv.efatura.gov.tr",
@@ -52,6 +56,8 @@ OFFICIAL_SITES = [
     "https://ebelge.gib.gov.tr",
     "https://vedop.gib.gov.tr",
     "https://ebeyanname.gib.gov.tr",
+    # Tapu Kadastro & Web Tapu
+    "https://webtapu.tkgm.gov.tr",
     # Ticaret & MERSİS & KİK
     "https://mersis.gtb.gov.tr",
     "https://mersis.ticaret.gov.tr",
