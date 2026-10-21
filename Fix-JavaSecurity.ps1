@@ -18,7 +18,10 @@ param(
     [switch]$NoBackup,
     [switch]$ListSites,
     [switch]$RestoreBackup,
-    [string[]]$CustomSites = @()
+    [string[]]$CustomSites = @(),
+    [string]$File,
+    [ValidateSet("belediye", "baro", "all")]
+    [string]$Preset
 )
 
 try {
@@ -67,6 +70,35 @@ if ($ListSites) {
     exit 0
 }
 
+
+# 1.3 Dış Dosyadan Toplu Site Import (--File)
+if ($File -and (Test-Path $File)) {
+    $fileSites = Get-Content $File | Where-Object { -not [string]::IsNullOrWhiteSpace($_) -and -not $_.Trim().StartsWith("#") }
+    $CustomSites += $fileSites
+    Write-Host "[+] Dış dosyadan $($fileSites.Count) adet site aktarıldı: $File" -ForegroundColor Cyan
+}
+
+# 1.4 Hazır Paketler (--Preset)
+$belediyeSites = @(
+    "https://ebelediye.ibb.gov.tr", "https://ebelediye.ankara.bel.tr", "https://ebelediye.izmir.bel.tr",
+    "https://ebelediye.bursa.bel.tr", "https://ebelediye.antalya.bel.tr", "https://ebelediye.konya.bel.tr",
+    "https://ebelediye.gaziantep.bel.tr", "https://e-imar.ibb.gov.tr", "https://imar.ankara.bel.tr"
+)
+$baroSites = @(
+    "https://uhap.com.tr", "https://portal.barobirlik.org.tr", "https://ubap.barobirlik.org.tr",
+    "https://istanbulbarosu.org.tr", "https://ankarabarosu.org.tr"
+)
+
+if ($Preset -eq "belediye") {
+    $CustomSites += $belediyeSites
+    Write-Host "[+] 'belediye' paketi eklendi ($($belediyeSites.Count) adet)" -ForegroundColor Cyan
+} elseif ($Preset -eq "baro") {
+    $CustomSites += $baroSites
+    Write-Host "[+] 'baro' paketi eklendi ($($baroSites.Count) adet)" -ForegroundColor Cyan
+} elseif ($Preset -eq "all") {
+    $CustomSites += $belediyeSites + $baroSites
+    Write-Host "[+] 'all' (belediye + baro) paketleri eklendi" -ForegroundColor Cyan
+}
 
 # 2. Eklenecek Resmi Portalların Listesi
 $officialSites = @(
