@@ -1,6 +1,7 @@
 import unittest
 import tempfile
 import shutil
+import zipfile
 from pathlib import Path
 from java_security import (
     apply_sites,
@@ -8,6 +9,10 @@ from java_security import (
     remove_site,
     normalize_url,
     load_sites_from_file,
+    generate_ruleset_xml,
+    package_deployment_rule_set,
+    get_system_drs_path,
+    get_drs_info,
     OFFICIAL_SITES,
     PRESETS
 )
@@ -88,6 +93,38 @@ class TestJavaSecurity(unittest.TestCase):
         rem, remaining = remove_site(self.test_dir, "https://custom-portal.gov.tr")
         self.assertEqual(rem, 1)
         self.assertEqual(remaining, len(OFFICIAL_SITES))
+
+    def test_generate_ruleset_xml(self):
+        xml_content = generate_ruleset_xml(["https://*.ozelportal.com.tr"])
+        self.assertIn('<ruleset version="1.0+">', xml_content)
+        self.assertIn('location="https://*.uyap.gov.tr"', xml_content)
+        self.assertIn('location="https://*.gib.gov.tr"', xml_content)
+        self.assertIn('location="https://*.ozelportal.com.tr"', xml_content)
+        self.assertIn('permission="run"', xml_content)
+        self.assertIn('permission="default"', xml_content)
+
+    def test_package_deployment_rule_set(self):
+        jar_path = Path(self.test_dir) / "DeploymentRuleSet.jar"
+        res = package_deployment_rule_set(jar_path, domains=["https://*.baro.org.tr"], self_sign=False)
+        self.assertEqual(res["jar_path"], str(jar_path))
+        self.assertTrue(jar_path.exists())
+        self.assertGreaterEqual(res["rules_count"], 10)
+
+        # Verify JAR contains ruleset.xml
+        with zipfile.ZipFile(jar_path, "r") as zf:
+            self.assertIn("ruleset.xml", zf.namelist())
+            xml_data = zf.read("ruleset.xml").decode("utf-8")
+            self.assertIn('location="https://*.baro.org.tr"', xml_data)
+
+    def test_get_system_drs_path_and_info(self):
+        drs_path = get_system_drs_path()
+        self.assertIsNotNone(drs_path)
+        self.assertIn("Deployment", str(drs_path))
+
+        info = get_drs_info()
+        self.assertIn("system_dir", info)
+        self.assertIn("jar_path", info)
+        self.assertIn("installed", info)
 
 if __name__ == "__main__":
     unittest.main()

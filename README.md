@@ -1,45 +1,94 @@
-# GİB, UYAP & MERSİS Java Güvenlik Engeli Çözücü ☕🛡️
+# GİB, UYAP & MERSİS Java Güvenlik Engeli Çözücü & DRS Paketleyici ☕🛡️
 
 [![Python CI](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions/workflows/ci.yml/badge.svg)](https://github.com/eimza-kep/gib-java-guvenlik-cozucu/actions)
 [![Lisans: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Win | Mac | Linux](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com)
+[![Enterprise: Java DRS](https://img.shields.io/badge/Enterprise-Deployment%20Rule%20Set-orange.svg)](java_security.py)
 [![Blog](https://img.shields.io/badge/Rehber-UYAP%20Teknik%20Destek-red.svg)](https://uyapteknikdestek.site/)
 
-GİB (e-Beyanname, e-Fatura, e-Defter, İnteraktif Vergi Dairesi), UYAP (Avukat, Vatandaş, Kurum Portalları), DYS, SGK e-Bildirge, MERSİS, E-Belediye ve Baro portallarına giriş yaparken karşılaşılan **"Application Blocked by Java Security"**, **"Your security settings have blocked an application from running with an out-of-date or expired version of Java"** ve sertifika engellerini otomatik olarak `exception.sites` dosyasına ekleyerek çözen açık kaynaklı yardımcı araçtır.
+GİB (e-Beyanname, e-Fatura, e-Defter, İnteraktif Vergi Dairesi), UYAP (Avukat, Vatandaş, Kurum Portalları), DYS, SGK e-Bildirge, MERSİS, E-Belediye ve Baro portallarına giriş yaparken karşılaşılan **"Application Blocked by Java Security"**, **"Your security settings have blocked an application from running with an out-of-date or expired version of Java"** ve sertifika engellerini otomatik çözen; büyük hukuk büroları ve kurumsal firmalar için **Java Deployment Rule Set (DRS)** paketleri üreten açık kaynaklı güvenlik aracı.
 
 ---
 
-## ✨ Öne Çıkan Özellikler
+## ✨ Öne Çıkan Özellikler (v1.4)
 
-* ⚡ **Otomatik İstisna Yapılandırması:** 30'dan fazla resmi devlet portalını (`.gov.tr`) tek komutla güvenli siteler listesine ekler.
+* 🏢 **Kurumsal Deployment Rule Set (DRS) Desteği:** `--generate-drs` ile her bilgisayara tek tek istisna girmek yerine tüm ağda güvenlik uyarılarını kaldıran `DeploymentRuleSet.jar` üretir.
+* ⚡ **Otomatik İstisna Yapılandırması:** 35'ten fazla resmi devlet portalını (`.gov.tr`) tek komutla güvenli siteler listesine (`exception.sites`) ekler.
 * 🏛️ **Hazır Portal Paketleri (`--preset`):** Büyükşehir belediyeleri e-belediye/e-imar sistemleri (`belediye`), Türkiye Barolar Birliği ve UHAP portalları (`baro`) için tek parametreyle genişletme.
 * 📁 **Toplu Dosyadan Aktarma (`--file`):** Kurumsal intranet, özel port ve yerel alan adlarını metin dosyasından toplu içe aktarma desteği.
 * 🌐 **Akıllı URL Normalizasyonu:** Protokol (`https://` ve `http://`) eksikliklerini otomatik tamamlama, özel portları (`:8443`, `:8080`) koruma ve wildcard temizleme.
 * 🧹 **Java Önbellek Temizleme:** `--clear-cache` parametresi ile bozulmuş JAR dosyalarını ve eski sertifika önbelleklerini temizler.
 * 💾 **Güvenli Yedekleme:** Değişiklik öncesinde mevcut `exception.sites` dosyasının zaman damgalı yedeğini alır.
 * 🖥️ **Çoklu Platform:** Windows (`%APPDATA%\Sun\Java`), macOS (`~/Library/Application Support/Oracle/Java`) ve Linux (`~/.java`) dizinlerini otomatik tanır.
-* 📋 **Site Yönetimi:** `--list` ile kayıtlı siteleri listeleme, `--remove` ile site çıkarma olanağı.
 
 ---
 
-## 🛠️ Kurulum ve Ortam Hazırlığı
+## 🛠️ Kurulum ve Yerel Geliştirme (Local Setup)
 
-Projeyi yerel ortamınızda çalıştırmak için ek bir harici kütüphane (pip) bağımlılığı gerekmez; standart Python 3.8+ kütüphaneleriyle doğrudan çalışır.
+### Sistem Gereksinimleri
+- Python 3.8 veya üzeri
+- `git`
+- (İsteğe bağlı) DRS paketlerini kurumsal imzalamak için Java JDK (`keytool` ve `jarsigner`)
 
+### 1. Depoyu Klonlama ve Çalışma Ortamı
 ```bash
 # Depoyu klonlayın
 git clone https://github.com/eimza-kep/gib-java-guvenlik-cozucu.git
 cd gib-java-guvenlik-cozucu
 
-# Testleri çalıştırın
-python -m unittest test_security.py
+# Sanal ortam (virtualenv) oluşturma ve aktifleştirme (Opsiyonel)
+python -m venv venv
+# Linux/macOS:
+source venv/bin/activate
+# Windows PowerShell:
+.\venv\Scripts\Activate.ps1
+```
+
+### 2. Birim Testleri Çalıştırma
+```bash
+python test_security.py
+```
+veya `unittest` keşif mekanizmasıyla:
+```bash
+python -m unittest discover -v
 ```
 
 ---
 
-## 🚀 Kullanım Senaryoları
+## 🏢 Kurumsal Ağ Dağıtımı: Java Deployment Rule Set (DRS)
 
-### 1. Temel Kullanım (Tüm Resmi Portalları Ekleme)
+Büyük hukuk bürolarında, bankalarda ve muhasebe departmanlarında yüzlerce istemciye tek tek `exception.sites` yapılandırmak yerine Oracle / OpenJDK **Deployment Rule Set (DRS)** mimarisi kullanılır.
+
+### 1. Kurumsal DRS Paketi Oluşturma
+```bash
+python java_security.py --generate-drs ./DeploymentRuleSet.jar
+```
+
+### 2. Paketi Kurumsal Sertifikanızla İmzalama
+Java DRS mimarisi, kural setinin güvenilir bir kurum sertifikasıyla imzalanmasını şart koşar:
+```bash
+jarsigner -keystore <sirket_sertifikasi.jks> ./DeploymentRuleSet.jar <alias>
+```
+*(Test ortamları için `--self-sign` parametresi ile otomatik kendinden imzalı paket de üretebilirsiniz).*
+
+### 3. GPO / Intune ile Merkezi Dağıtım Yolları:
+
+| İşletim Sistemi | Hedef DRS Konumu |
+|:---|:---|
+| **Windows** | `C:\Windows\Sun\Java\Deployment\DeploymentRuleSet.jar` |
+| **macOS** | `/Library/Application Support/Oracle/Java/Deployment/DeploymentRuleSet.jar` |
+| **Linux** | `/etc/.java/deployment/DeploymentRuleSet.jar` |
+
+*Sistemdeki DRS durumunu kontrol etmek için:*
+```bash
+python java_security.py --drs-info
+```
+
+---
+
+## 🚀 Bireysel Kullanım Senaryoları (Exception Sites)
+
+### 1. Temel Kullanım (Tüm Resmi Portalları Tek Komutla Ekleme)
 ```bash
 python java_security.py
 ```
@@ -93,11 +142,7 @@ python java_security.py --remove https://eski-portal.gov.tr
 
 ### Windows PowerShell Tek Tıkla Onarım
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\Fix-JavaSecurity.ps1
-```
-*Hazır paket ile:*
-```powershell
-powershell -ExecutionPolicy Bypass -File .\Fix-JavaSecurity.ps1 -Preset all
+powershell -ExecutionPolicy Bypass -File .\Fix-JavaSecurity.ps1 -Preset all -ClearCache
 ```
 
 ### macOS ve Linux Bash Başlatıcı
