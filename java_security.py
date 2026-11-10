@@ -48,6 +48,8 @@ OFFICIAL_SITES = [
     "https://uyap.gov.tr",
     "https://uyap.adalet.gov.tr",
     "https://avukat.uyap.gov.tr",
+    "https://esatis.uyap.gov.tr",
+    "https://vatandas.uyap.gov.tr",
     "https://vatandas.uyap.gov.tr",
     "https://kurum.uyap.gov.tr",
     "https://bilirkisi.uyap.gov.tr",
